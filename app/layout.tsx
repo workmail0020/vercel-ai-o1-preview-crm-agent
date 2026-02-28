@@ -14,8 +14,8 @@ const geistMono = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "CRM - Contacts import",
-  description: "",
+  title: "Contacts Hub - Modern CRM",
+  description: "Manage and import your customer contacts with a modern, intuitive interface",
 };
 
 export default function RootLayout({

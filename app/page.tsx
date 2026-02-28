@@ -8,7 +8,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Label } from "@/components/ui/label";
-import { Upload, File } from "lucide-react";
+import { Upload, File, Users } from "lucide-react";
 
 import { uploadFile } from "./actions";
 export default function Component() {
@@ -17,7 +17,7 @@ export default function Component() {
     {
       name: "Amanda Brown",
       email: "amanda.brown@example.com",
-      position: "Data Scbentist",
+      position: "Data Scientist",
       company: "AutoCorp",
     },
     {
@@ -29,7 +29,7 @@ export default function Component() {
     {
       name: "Michael Jackson",
       email: "michael.jackson@example.com",
-      position: "CqO",
+      position: "CTO",
       company: "AutoCorp",
     },
     {
@@ -53,59 +53,102 @@ export default function Component() {
   ];
 
   return (
-    <div className="container mx-auto p-4">
-      <h1 className="text-2xl font-bold mb-6">CRM - Contacts import</h1>
-      <form action={uploadFile} className="flex flex-col gap-4">
-        <div className="flex items-center gap-4 mb-6">
-          <div className="grid w-full max-w-sm items-center gap-1.5">
-            <Label htmlFor="file-upload" className="text-sm font-medium">
-              Choose file
-            </Label>
-            <div className="relative">
-              <input
-                id="file-upload"
-                name="file"
-                type="file"
-                className="sr-only"
-                aria-describedby="file-upload-desc"
-              />
-              <Label
-                htmlFor="file-upload"
-                className="flex items-center gap-2 px-3 py-2 text-sm border rounded-md cursor-pointer hover:bg-gray-50"
-              >
-                <File className="w-4 h-4" />
-              </Label>
-              <p id="file-upload-desc" className="mt-1 text-xs text-gray-500">
-                Select a CSV file to upload contacts
-              </p>
+    <main className="min-h-screen">
+      <div className="max-w-6xl mx-auto px-6 py-12">
+        {/* Header Section */}
+        <div className="mb-10">
+          <div className="flex items-center gap-3 mb-3">
+            <div className="p-2.5 bg-primary rounded-lg">
+              <Users className="w-6 h-6 text-primary-foreground" />
             </div>
+            <h1 className="text-4xl font-bold text-foreground">Contacts Hub</h1>
           </div>
-          <Button>
-            <Upload className="mr-2 h-4 w-4" /> Upload Contact
-          </Button>
+          <p className="text-muted-foreground text-lg">
+            Import and manage your customer contacts with ease
+          </p>
         </div>
-      </form>
 
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Name</TableHead>
-            <TableHead>Position</TableHead>
-            <TableHead>Company</TableHead>
-            <TableHead>Email</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {contacts.map((contact, id) => (
-            <TableRow key={id}>
-              <TableCell className="font-medium">{contact.name}</TableCell>
-              <TableCell>{contact.email}</TableCell>
-              <TableCell>{contact.company}</TableCell>
-              <TableCell>{contact.email}</TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-    </div>
+        {/* Upload Section */}
+        <div className="bg-card rounded-2xl shadow-sm border border-border p-8 mb-8">
+          <h2 className="text-xl font-semibold text-foreground mb-6">
+            Import Contacts
+          </h2>
+          <form action={uploadFile} className="flex flex-col gap-6">
+            <div className="flex flex-col md:flex-row items-start md:items-end gap-4">
+              <div className="flex-1 min-w-0">
+                <Label htmlFor="file-upload" className="text-sm font-semibold text-foreground mb-3 block">
+                  Select CSV File
+                </Label>
+                <div className="relative">
+                  <input
+                    id="file-upload"
+                    name="file"
+                    type="file"
+                    className="sr-only"
+                    aria-describedby="file-upload-desc"
+                    accept=".csv"
+                  />
+                  <label
+                    htmlFor="file-upload"
+                    className="flex flex-col items-center justify-center px-6 py-8 border-2 border-dashed border-border rounded-xl cursor-pointer hover:bg-muted/50 transition-colors"
+                  >
+                    <File className="w-8 h-8 text-muted-foreground mb-2" />
+                    <span className="text-sm font-medium text-foreground">
+                      Choose file or drag and drop
+                    </span>
+                    <span className="text-xs text-muted-foreground mt-1">
+                      CSV files only
+                    </span>
+                  </label>
+                  <p id="file-upload-desc" className="mt-2 text-xs text-muted-foreground">
+                    Upload a CSV file with Name, Email, Position, and Company columns
+                  </p>
+                </div>
+              </div>
+              <Button className="md:self-end">
+                <Upload className="mr-2 h-4 w-4" /> Upload
+              </Button>
+            </div>
+          </form>
+        </div>
+
+        {/* Contacts Table Section */}
+        <div className="bg-card rounded-2xl shadow-sm border border-border p-8">
+          <h2 className="text-xl font-semibold text-foreground mb-6">
+            Recent Contacts
+          </h2>
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow className="border-border hover:bg-transparent">
+                  <TableHead className="text-foreground font-semibold">Name</TableHead>
+                  <TableHead className="text-foreground font-semibold">Position</TableHead>
+                  <TableHead className="text-foreground font-semibold">Company</TableHead>
+                  <TableHead className="text-foreground font-semibold">Email</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {contacts.map((contact, id) => (
+                  <TableRow key={id} className="border-border hover:bg-muted/50">
+                    <TableCell className="font-medium text-foreground">
+                      {contact.name}
+                    </TableCell>
+                    <TableCell className="text-foreground">
+                      {contact.position}
+                    </TableCell>
+                    <TableCell className="text-foreground">
+                      {contact.company}
+                    </TableCell>
+                    <TableCell className="text-muted-foreground">
+                      {contact.email}
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </div>
+        </div>
+      </div>
+    </main>
   );
 }
